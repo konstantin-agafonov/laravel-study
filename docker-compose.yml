@@ -1,0 +1,57 @@
+networks:
+  backend:
+
+services:
+  webserver:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./src:/app/src
+      - ./config/nginx/nginx.frontend.conf:/etc/nginx/conf.d/frontend.conf
+      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./logs/nginx:/var/log/nginx/
+    networks:
+      - backend
+
+  php:
+    build:
+      context: ./docker/php
+      args:
+        - PUID=${PHP_FPM_PUID}
+        - PGID=${PHP_FPM_PGID}
+    user: "www-data:www-data"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./src:/app/src
+    environment:
+      PHP_SESSION_HANDLER: "memcached"
+      PHP_SESSION_PATH: "memcached:11211"
+      PHP_ENABLE_XDEBUG: ${PHP_ENABLE_XDEBUG}
+      XDEBUG_CONFIG: ${XDEBUG_CONFIG}
+      PHP_IDE_CONFIG: ${PHP_IDE_CONFIG}
+    networks:
+      - backend
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - backend
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - backend
+
+volumes:
+  pgdata:
