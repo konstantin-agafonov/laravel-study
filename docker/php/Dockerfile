@@ -2,7 +2,11 @@ FROM php:8.4-fpm-alpine
 
 RUN apk update \
     && apk upgrade --available \
-    && apk add --virtual build-deps
+    && apk add --virtual build-deps \
+    zlib \
+    zlib-dev \
+    libpng \
+    libpng-dev
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
 
