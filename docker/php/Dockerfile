@@ -6,7 +6,8 @@ RUN apk update \
     zlib \
     zlib-dev \
     libpng \
-    libpng-dev
+    libpng-dev \
+    libjpeg
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
 
