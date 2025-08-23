@@ -7,7 +7,10 @@ RUN apk update \
     zlib-dev \
     libpng \
     libpng-dev \
-    libjpeg
+    libjpeg \
+    libjpeg-turbo-dev \
+    freetype \
+    freetype-dev
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
 
