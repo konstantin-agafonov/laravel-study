@@ -10,7 +10,25 @@ RUN apk update \
     libjpeg \
     libjpeg-turbo-dev \
     freetype \
-    freetype-dev
+    freetype-dev \
+    autoconf \
+    build-base \
+    icu-dev \
+    libevent-dev \
+    openssl-dev \
+    libzip \
+    libzip-dev \
+    bzip2 \
+    git \
+    libwebp-dev \
+    postgresql-dev \
+    linux-headers \
+    libmemcached-dev \
+    wget \
+    bash \
+    supervisor \
+    npm \
+    curl
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
 

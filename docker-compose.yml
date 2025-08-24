@@ -16,16 +16,15 @@ services:
       - backend
 
   php:
-    build:
-      context: ./docker/php
-      args:
-        - PUID=${PHP_FPM_PUID}
-        - PGID=${PHP_FPM_PGID}
+    build: ./docker/php
     user: "www-data:www-data"
     extra_hosts:
       - "host.docker.internal:host-gateway"
+      - "api.laravel.test:host-gateway"
     volumes:
       - ./src:/app/src
+      - ./config/php/php.ini:/usr/local/etc/php/php.ini
+      - ./config/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
     environment:
       PHP_SESSION_HANDLER: "memcached"
       PHP_SESSION_PATH: "memcached:11211"
@@ -42,6 +41,11 @@ services:
       POSTGRES_PASSWORD: example
     volumes:
       - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 1s
+      timeout: 5s
+      retries: 10
     networks:
       - backend
 
