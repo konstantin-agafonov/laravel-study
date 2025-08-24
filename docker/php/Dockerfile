@@ -43,7 +43,7 @@ RUN docker-php-ext-install -j$(getconf _NPROCESSORS_ONLN) \
     zip
 
 RUN pecl channel-update pecl.php.net \
-    && pecl intall -0 -f \
+    && pecl install -o -f \
         memcached \
         redis \
         event \
