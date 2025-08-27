@@ -30,5 +30,5 @@ Homestead.json
 auth.json
 
 .idea
-pgdata
+data
 logs
