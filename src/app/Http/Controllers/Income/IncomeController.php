@@ -7,5 +7,8 @@ use Illuminate\Http\Request;
 
 class IncomeController extends Controller
 {
-    //
+    public function store(Request $request) {
+        $validated = CheckInput::validate($request);
+
+    }
 }

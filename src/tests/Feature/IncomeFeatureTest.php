@@ -8,13 +8,17 @@ use Tests\TestCase;
 
 class IncomeFeatureTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     */
-    public function test_example(): void
-    {
-        $response = $this->get('/');
+    use RefreshDatabase;
 
-        $response->assertStatus(200);
+    public function test_should_create_income(): void
+    {
+        $response = $this->postJson('/api/income', [
+            'name' => 'Test Income',
+            'amount' => 100,
+            'user_id' => 1,
+        ]);
+
+        $response->assertCreated();
+        $response->assertJsonPath('message', 'saved successfully');
     }
 }
