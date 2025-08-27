@@ -12,9 +12,9 @@ class IncomeUnitTest extends TestCase
     {
         $validated = CheckInput::validate([]);
 
-        $errors = $validated->original;
+        $errors = $validated->original['errors'];
 
-        $this->assertTrue(3, count($errors));
+        $this->assertEquals(3, count($errors));
     }
 
     public function test_amount_is_valid_number(): void
@@ -25,9 +25,9 @@ class IncomeUnitTest extends TestCase
             'user_id' => 1,
         ]);
 
-        $errors = $validated->original;
+        $errors = $validated->original['errors'];
 
-        $this->assertTrue(1, count($errors));
+        $this->assertEquals(1, count($errors));
     }
 
     public function test_name_is_greater_than_n_chars(): void
@@ -38,8 +38,8 @@ class IncomeUnitTest extends TestCase
             'user_id' => 1,
         ]);
 
-        $errors = $validated->original;
+        $errors = $validated->original['errors'];
 
-        $this->assertTrue(1, count($errors));
+        $this->assertEquals(1, count($errors));
     }
 }
