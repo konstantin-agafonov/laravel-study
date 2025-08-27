@@ -19,6 +19,6 @@ class IncomeFeatureTest extends TestCase
         ]);
 
         $response->assertCreated();
-        $response->assertJsonPath('message', 'saved successfully');
+        $response->assertJsonPath('message', 'Income created successfully');
     }
 }
